@@ -1,0 +1,9 @@
+name: devcontainer
+
+services:
+  modal-builder:
+    image: modal-builder
+    build: .
+    container_name: modal-builder
+    env_file:
+      - .env

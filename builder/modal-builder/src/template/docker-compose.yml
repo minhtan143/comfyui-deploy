@@ -1,0 +1,10 @@
+name: devcontainer
+
+services:
+  comfyui:
+    image: comfyui
+    build: .
+    container_name: comfyui
+    ports:
+      - 8188:8188
+      

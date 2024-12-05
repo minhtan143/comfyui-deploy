@@ -16,3 +16,6 @@ ENV PATH="$FLYCTL_INSTALL/bin:$PATH"
 # RUN echo 'export PATH="$FLYCTL_INSTALL/bin:$PATH"' >> ~/.bashrc
 
 RUN npm install -g bun
+
+RUN apt-get update -y && apt-get install -y iputils-ping
+EXPOSE 3000

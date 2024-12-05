@@ -25,7 +25,7 @@ RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 # Clone ComfyUI repository
 RUN git clone https://github.com/comfyanonymous/ComfyUI.git /comfyui
 # Force comfyui on a specific version
-RUN cd /comfyui && git reset --hard b12b48e170ccff156dc6ec11242bb6af7d8437fd
+RUN cd /comfyui && git checkout tags/v0.3.6
 
 # Change working directory to ComfyUI
 WORKDIR /comfyui
@@ -44,29 +44,30 @@ RUN git clone --depth 1 https://github.com/ltdrdata/ComfyUI-Manager.git
 RUN cd ComfyUI-Manager && pip3 install -r requirements.txt
 
 # Copy the snapshot json in place
-RUN mkdir ComfyUI-Manager/startup-scripts
-COPY /data/snapshot.json ComfyUI-Manager/startup-scripts/restore-snapshot.json
+# RUN mkdir ComfyUI-Manager/startup-scripts
+# COPY /data/snapshot.json ComfyUI-Manager/startup-scripts/restore-snapshot.json
 
-WORKDIR /comfyui
+# WORKDIR /comfyui
 
-COPY /data/extra_model_paths.yaml .
+# COPY /data/extra_model_paths.yaml .
 # ADD src/extra_model_paths.yaml ./
 
 # Go back to the root
-WORKDIR /
+# WORKDIR /
 
-COPY /data/install_deps.py .
-COPY /data/deps.json .
-COPY /data/models.json .
-RUN python3 install_deps.py
+# COPY /data/install_deps.py .
+# COPY /data/deps.json .
+# COPY /data/models.json .
+# RUN python3 install_deps.py
 
-WORKDIR /comfyui/custom_nodes
+# WORKDIR /comfyui/custom_nodes
 
-RUN git clone https://github.com/BennyKok/comfyui-deploy.git && cd comfyui-deploy && git reset --hard 744a222e2652014e4d09af6b54fc11263b15e2f7
+# RUN git clone https://github.com/BennyKok/comfyui-deploy.git && cd comfyui-deploy && git reset --hard 744a222e2652014e4d09af6b54fc11263b15e2f7
 
 WORKDIR /
 
 COPY /data/start.sh /start.sh
 RUN chmod +x /start.sh
+EXPOSE 8188
 
 ENTRYPOINT ["/start.sh"]

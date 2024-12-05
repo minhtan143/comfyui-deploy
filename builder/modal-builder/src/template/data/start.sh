@@ -3,4 +3,5 @@
 # Your custom startup commands here.
 
 echo "Starting modal"
-exec "$@" # Runs the command passed to the entrypoint script.
+cd comfyui
+python main.py --listen 0.0.0.0 --port 8188 --cpu
